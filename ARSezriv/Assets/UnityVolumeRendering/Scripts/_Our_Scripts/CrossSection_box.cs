@@ -34,7 +34,6 @@ public class CrossSection_box : MonoBehaviour
 
     public void CreateSlicer_for_YSI()
     {
-        //!!!!! Незабыть включить
         //GameObject.FindObjectOfType<PlaneController>().ToggleComponent();
 
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();

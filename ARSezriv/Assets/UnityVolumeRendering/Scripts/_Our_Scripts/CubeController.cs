@@ -8,11 +8,10 @@ public class CubeController : MonoBehaviour
     [SerializeField] private Transform targetCube;
 
     [Header("Movement Settings")]
-    [SerializeField] private float moveStep = 0.5f;
-    [SerializeField] private float scaleStep = 0.1f;
-    [SerializeField] private float uniformScaleStep = 0.1f;
-    [SerializeField] private Vector3 defaultScale = new Vector3(0.5f, 0.5f, 0.5f);
+    [SerializeField] private float maxMoveDistance = 1f;
+    [SerializeField] private float maxScale = 2.0f;
     [SerializeField] private float minScale = 0.001f;
+    [SerializeField] private Vector3 defaultScale = new Vector3(0.5f, 0.5f, 0.5f);
     [SerializeField] private float sliceHeight = 0.003f;
 
     [Header("UI Sliders - Rotation")]
@@ -20,23 +19,16 @@ public class CubeController : MonoBehaviour
     [SerializeField] private Slider rotateYSlider;
     [SerializeField] private Slider rotateZSlider;
 
-    [Header("UI Buttons - Movement")]
-    [SerializeField] private Toggle moveXPlus;
-    [SerializeField] private Toggle moveXMinus;
-    [SerializeField] private Toggle moveYPlus;
-    [SerializeField] private Toggle moveYMinus;
-    [SerializeField] private Toggle moveZPlus;
-    [SerializeField] private Toggle moveZMinus;
+    [Header("UI Sliders - Position")]
+    [SerializeField] private Slider positionXSlider;
+    [SerializeField] private Slider positionYSlider;
+    [SerializeField] private Slider positionZSlider;
 
-    [Header("UI Buttons - Scale")]
-    [SerializeField] private Toggle scaleXPlus;
-    [SerializeField] private Toggle scaleXMinus;
-    [SerializeField] private Toggle scaleYPlus;
-    [SerializeField] private Toggle scaleYMinus;
-    [SerializeField] private Toggle scaleZPlus;
-    [SerializeField] private Toggle scaleZMinus;
-    [SerializeField] private Toggle scaleUniformPlus;
-    [SerializeField] private Toggle scaleUniformMinus;
+    [Header("UI Sliders - Scale")]
+    [SerializeField] private Slider scaleXSlider;
+    [SerializeField] private Slider scaleYSlider;
+    [SerializeField] private Slider scaleZSlider;
+    [SerializeField] private Slider scaleUniformSlider;
 
     [Header("UI Buttons - Special Functions")]
     [SerializeField] private Toggle sliceButton;
@@ -59,29 +51,38 @@ public class CubeController : MonoBehaviour
             initialRotation = targetCube.eulerAngles;
         }
 
+        
         // Настройка слайдеров вращения
         rotateXSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.right, value));
         rotateYSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.up, value));
         rotateZSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.forward, value));
-        
-        
-        // Настройка кнопок перемещения
-         moveXPlus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.right); });
-        moveXMinus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.left); });
-        moveYPlus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.up); });
-        moveYMinus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.down); });
-        moveZPlus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.forward); });
-        moveZMinus.onValueChanged.AddListener((isOn) => { if(isOn) MoveCube(Vector3.back); });
 
-        // Настройка кнопок масштабирования
-        scaleXPlus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.right, false); });
-        scaleXMinus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.left, false); });
-        scaleYPlus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.up, false); });
-        scaleYMinus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.down, false); });
-        scaleZPlus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.forward, false); });
-        scaleZMinus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.back, false); });
-        scaleUniformPlus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(Vector3.one, true); });
-        scaleUniformMinus.onValueChanged.AddListener((isOn) => { if(isOn) ScaleCube(-Vector3.one, true); });
+        // Настройка слайдеров позиции
+        positionXSlider.minValue = -maxMoveDistance;
+        positionXSlider.maxValue = maxMoveDistance;
+        positionYSlider.minValue = -maxMoveDistance;
+        positionYSlider.maxValue = maxMoveDistance;
+        positionZSlider.minValue = -maxMoveDistance;
+        positionZSlider.maxValue = maxMoveDistance;
+        
+        positionXSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.right, value));
+        positionYSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.up, value));
+        positionZSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.forward, value));
+
+        // Настройка слайдеров масштабирования
+        scaleXSlider.minValue = minScale;
+        scaleXSlider.maxValue = maxScale;
+        scaleYSlider.minValue = minScale;
+        scaleYSlider.maxValue = maxScale;
+        scaleZSlider.minValue = minScale;
+        scaleZSlider.maxValue = maxScale;
+        scaleUniformSlider.minValue = minScale;
+        scaleUniformSlider.maxValue = maxScale;
+        
+        scaleXSlider.onValueChanged.AddListener((value) => SetScale(Vector3.right, value));
+        scaleYSlider.onValueChanged.AddListener((value) => SetScale(Vector3.up, value));
+        scaleZSlider.onValueChanged.AddListener((value) => SetScale(Vector3.forward, value));
+        scaleUniformSlider.onValueChanged.AddListener((value) => SetUniformScale(value));
 
         // Настройка кнопок сброса
         resetPosition.onValueChanged.AddListener((isOn) => { if(isOn) ResetPosition(); });
@@ -94,11 +95,20 @@ public class CubeController : MonoBehaviour
         toggleSliceButton.onValueChanged.AddListener((isOn) => OffSlice(isOn));
     }
 
-    private void MoveCube(Vector3 direction)
+    private void SetPosition(Vector3 axis, float value)
     {
         if (targetCube != null)
         {
-            targetCube.Translate(direction * moveStep, Space.World);
+            Vector3 newPosition = targetCube.position;
+            
+            if (axis == Vector3.right) // X axis
+                newPosition.x = value;
+            else if (axis == Vector3.up) // Y axis
+                newPosition.y = value;
+            else if (axis == Vector3.forward) // Z axis
+                newPosition.z = value;
+                
+            targetCube.position = newPosition;
         }
     }
 
@@ -106,7 +116,6 @@ public class CubeController : MonoBehaviour
     {
         if (targetCube != null)
         {
-            // Вычисляем разницу между текущим углом и начальным
             Vector3 currentRotation = targetCube.eulerAngles;
             
             if (axis == Vector3.right) // X axis
@@ -124,19 +133,26 @@ public class CubeController : MonoBehaviour
         }
     }
 
-    private void ScaleCube(Vector3 axis, bool isUniform)
+    private void SetScale(Vector3 axis, float value)
     {
         if (targetCube == null) return;
 
-        Vector3 scaleChange = isUniform ? axis * uniformScaleStep : axis * scaleStep;
-        Vector3 newScale = targetCube.localScale + scaleChange;
-
-        // Ограничение минимального масштаба
-        newScale.x = Mathf.Max(newScale.x, minScale);
-        newScale.y = Mathf.Max(newScale.y, minScale);
-        newScale.z = Mathf.Max(newScale.z, minScale);
-
+        Vector3 newScale = targetCube.localScale;
+        
+        if (axis == Vector3.right) // X axis
+            newScale.x = value;
+        else if (axis == Vector3.up) // Y axis
+            newScale.y = value;
+        else if (axis == Vector3.forward) // Z axis
+            newScale.z = value;
+            
         targetCube.localScale = newScale;
+    }
+
+    private void SetUniformScale(float value)
+    {
+        if (targetCube == null) return;
+        targetCube.localScale = new Vector3(value, value, value);
     }
 
     private void SliceObject()
@@ -147,6 +163,7 @@ public class CubeController : MonoBehaviour
         newScale.y = sliceHeight;
         targetCube.localScale = newScale;
         isSliced = true;
+        scaleYSlider.value = sliceHeight;
     }
 
     public void OffSlice(bool isOn)
@@ -169,6 +186,9 @@ public class CubeController : MonoBehaviour
         if (targetCube != null)
         {
             targetCube.position = Vector3.zero;
+            positionXSlider.value = 0;
+            positionYSlider.value = 0;
+            positionZSlider.value = 0;
         }
     }
 
@@ -177,7 +197,6 @@ public class CubeController : MonoBehaviour
         if (targetCube != null)
         {
             targetCube.rotation = Quaternion.Euler(initialRotation);
-            // Сбрасываем слайдеры
             rotateXSlider.value = 0;
             rotateYSlider.value = 0;
             rotateZSlider.value = 0;
@@ -189,6 +208,10 @@ public class CubeController : MonoBehaviour
         if (targetCube != null)
         {
             targetCube.localScale = defaultScale;
+            scaleXSlider.value = defaultScale.x;
+            scaleYSlider.value = defaultScale.y;
+            scaleZSlider.value = defaultScale.z;
+            scaleUniformSlider.value = defaultScale.x;
         }
     }
 

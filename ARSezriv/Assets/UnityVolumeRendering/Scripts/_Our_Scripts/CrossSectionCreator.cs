@@ -33,8 +33,8 @@ public class CrossSectionCreator : MonoBehaviour
 
     public void CreateSlicer()
     {
-        //!!!!! Незабыть включить
-        //GameObject.FindObjectOfType<CubeController>().OffSlice();
+
+        //GameObject.FindObjectOfType<CubeController>().OffSlice(true);
 
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
         foreach (GameObject obj in allObjects)

@@ -10,10 +10,10 @@ public class GUI_Controller : MonoBehaviour
     public GameObject Edit_dataset_UI; //окно настройки датасета
     public Slider[] Vis;
     public Slider[] Rot;
-    public GameObject Srez_menu_UI;
-    public GameObject Ramka;
-    public GameObject cube;
-    public Slider[] Scale_sliders;
+    //public GameObject Srez_menu_UI;
+    //public GameObject Ramka;
+    //public GameObject cube;
+    //public Slider[] Scale_sliders;
     public TextMeshProUGUI _Load_hotBar;
     public GameObject Load_UI;
     public GameObject Load_dataset_Buton;
@@ -26,7 +26,7 @@ public class GUI_Controller : MonoBehaviour
     private void Awake()
     {
         Edit_dataset_UI.SetActive(false);
-        Srez_menu_UI.SetActive(false);
+        //Srez_menu_UI.SetActive(false);
         Load_UI.SetActive(false);
         Load_dataset_Buton.SetActive(false);
         Load_file_Buton.SetActive(false);
@@ -39,7 +39,7 @@ public class GUI_Controller : MonoBehaviour
             rotation_Render(Rot[0].value, Rot[1].value, Rot[2].value);
             
         }
-        Update_Srez();
+        //Update_Srez();
     }
     
     //Создание плоскости для разреза фантома из датасета
@@ -55,18 +55,24 @@ public class GUI_Controller : MonoBehaviour
     //Метод для импорта датасета
     public void Import_DICOM_dataset_for_UI()
     {
+        Load_dataset_Buton.SetActive(false);
+        Load_file_Buton.SetActive(false);
         GameObject.FindObjectOfType<UnityVolumeRendering.RuntimeGUI>().Import_DICOM_dataset();
         Load_UI.SetActive(true);
         Load_dataset_Buton.SetActive(true);
+        ActivateOnly(Menu_Mas[1]);
 
 
     }
     //Вызом меню для изменения датасета
     public void Edit_imported_dataset_for_UI()
     {
+        Load_dataset_Buton.SetActive(false);
+        Load_file_Buton.SetActive(false);
         GameObject.FindObjectOfType<UnityVolumeRendering.RuntimeGUI>().Edit_imported_dataset();
         //SetActive менюшки в AR
         Edit_dataset_UI.SetActive(true);
+        ActivateOnly(Menu_Mas[3]);
     }
     
     
@@ -100,6 +106,7 @@ public class GUI_Controller : MonoBehaviour
         GameObject.FindObjectOfType<UnityVolumeRendering.EditVolumeGUI>().Load_transfer_function();
         Load_UI.SetActive(true);
         Load_file_Buton.SetActive(true);
+        ActivateOnly(Menu_Mas[1]);
     }
     //Закрытие Эдит меню
     public void Close_Edit_Menu()
@@ -140,7 +147,7 @@ public class GUI_Controller : MonoBehaviour
     
     
     //Отурыть меню рамок для среза и обрезки
-    public void Open_Srez_Menu()
+    /*public void Open_Srez_Menu()
     {
         Srez_menu_UI.SetActive(true);
     }
@@ -154,7 +161,7 @@ public class GUI_Controller : MonoBehaviour
     {
         
         cube.transform.localScale = new Vector3(Scale_sliders[0].value, Scale_sliders[1].value, Scale_sliders[2].value);
-    }
+    }*/
     
     
     
