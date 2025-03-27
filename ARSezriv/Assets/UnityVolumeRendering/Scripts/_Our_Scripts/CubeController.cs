@@ -4,221 +4,324 @@ using UnityVolumeRendering;
 
 public class CubeController : MonoBehaviour
 {
-    [Header("Cube Reference")]
-    [SerializeField] private Transform targetCube;
+    [Header("Plane Reference")]
+    [SerializeField] private Transform targetPlane;
+    [SerializeField] private Transform parent;
 
     [Header("Movement Settings")]
-    [SerializeField] private float maxMoveDistance = 1f;
-    [SerializeField] private float maxScale = 2.0f;
-    [SerializeField] private float minScale = 0.001f;
-    [SerializeField] private Vector3 defaultScale = new Vector3(0.5f, 0.5f, 0.5f);
-    [SerializeField] private float sliceHeight = 0.003f;
+    [SerializeField] private float positionOffset = 1f;
 
-    [Header("UI Sliders - Rotation")]
-    [SerializeField] private Slider rotateXSlider;
-    [SerializeField] private Slider rotateYSlider;
-    [SerializeField] private Slider rotateZSlider;
-
-    [Header("UI Sliders - Position")]
+    [Header("Position Sliders")]
     [SerializeField] private Slider positionXSlider;
     [SerializeField] private Slider positionYSlider;
     [SerializeField] private Slider positionZSlider;
 
-    [Header("UI Sliders - Scale")]
+    [Header("Rotation Sliders")]
+    [SerializeField] private Slider rotationXSlider;
+    [SerializeField] private Slider rotationYSlider;
+    [SerializeField] private Slider rotationZSlider;
+
+    [Header("Scale Sliders")]
     [SerializeField] private Slider scaleXSlider;
     [SerializeField] private Slider scaleYSlider;
     [SerializeField] private Slider scaleZSlider;
-    [SerializeField] private Slider scaleUniformSlider;
+    [SerializeField] private Slider uniformScaleSlider;
 
-    [Header("UI Buttons - Special Functions")]
-    [SerializeField] private Toggle sliceButton;
-    [SerializeField] private Toggle toggleSliceButton;
+    [Header("Reset Control")]
+    [SerializeField] private Toggle resetAllToggle;
 
-    [Header("UI Buttons - Reset")]
-    [SerializeField] private Toggle resetPosition;
-    [SerializeField] private Toggle resetRotation;
-    [SerializeField] private Toggle resetScale;
-    [SerializeField] private Toggle resetAll;
+    [Header("Component Control")]
+    [SerializeField] private Toggle toggleComponentToggle;
+    [SerializeField] private Toggle smallScaleToggle;
 
-    private bool isSliced = false;
-    private Vector3 initialRotation = new Vector3(0, 0, 0);
+    private Vector3 initialScale = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 smallScale = new Vector3(0.5f, 0.003f, 0.5f);
+    private const float minScale = 0.001f;
+    private const float maxScale = 1f;
 
     private void Start()
     {
-        // Сохраняем начальный поворот
-        if (targetCube != null)
-        {
-            initialRotation = targetCube.eulerAngles;
-        }
+        // Initialize position sliders
+        positionXSlider.minValue = -positionOffset;
+        positionXSlider.maxValue = positionOffset;
+        positionYSlider.minValue = -positionOffset;
+        positionYSlider.maxValue = positionOffset;
+        positionZSlider.minValue = -positionOffset;
+        positionZSlider.maxValue = positionOffset;
 
-        
-        // Настройка слайдеров вращения
-        rotateXSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.right, value));
-        rotateYSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.up, value));
-        rotateZSlider.onValueChanged.AddListener((value) => RotateCube(Vector3.forward, value));
+        positionXSlider.onValueChanged.AddListener(OnPositionXChanged);
+        positionYSlider.onValueChanged.AddListener(OnPositionYChanged);
+        positionZSlider.onValueChanged.AddListener(OnPositionZChanged);
 
-        // Настройка слайдеров позиции
-        positionXSlider.minValue = -maxMoveDistance;
-        positionXSlider.maxValue = maxMoveDistance;
-        positionYSlider.minValue = -maxMoveDistance;
-        positionYSlider.maxValue = maxMoveDistance;
-        positionZSlider.minValue = -maxMoveDistance;
-        positionZSlider.maxValue = maxMoveDistance;
-        
-        positionXSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.right, value));
-        positionYSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.up, value));
-        positionZSlider.onValueChanged.AddListener((value) => SetPosition(Vector3.forward, value));
+        // Initialize rotation sliders
+        rotationXSlider.minValue = 0;
+        rotationXSlider.maxValue = 360f;
+        rotationYSlider.minValue = 0;
+        rotationYSlider.maxValue = 360f;
+        rotationZSlider.minValue = 0;
+        rotationZSlider.maxValue = 360f;
 
-        // Настройка слайдеров масштабирования
+        rotationXSlider.onValueChanged.AddListener(OnRotationXChanged);
+        rotationYSlider.onValueChanged.AddListener(OnRotationYChanged);
+        rotationZSlider.onValueChanged.AddListener(OnRotationZChanged);
+
+        // Initialize scale sliders
         scaleXSlider.minValue = minScale;
         scaleXSlider.maxValue = maxScale;
         scaleYSlider.minValue = minScale;
         scaleYSlider.maxValue = maxScale;
         scaleZSlider.minValue = minScale;
         scaleZSlider.maxValue = maxScale;
-        scaleUniformSlider.minValue = minScale;
-        scaleUniformSlider.maxValue = maxScale;
-        
-        scaleXSlider.onValueChanged.AddListener((value) => SetScale(Vector3.right, value));
-        scaleYSlider.onValueChanged.AddListener((value) => SetScale(Vector3.up, value));
-        scaleZSlider.onValueChanged.AddListener((value) => SetScale(Vector3.forward, value));
-        scaleUniformSlider.onValueChanged.AddListener((value) => SetUniformScale(value));
+        uniformScaleSlider.minValue = minScale;
+        uniformScaleSlider.maxValue = maxScale;
 
-        // Настройка кнопок сброса
-        resetPosition.onValueChanged.AddListener((isOn) => { if(isOn) ResetPosition(); });
-        resetRotation.onValueChanged.AddListener((isOn) => { if(isOn) ResetRotation(); });
-        resetScale.onValueChanged.AddListener((isOn) => { if(isOn) ResetScale(); });
-        resetAll.onValueChanged.AddListener((isOn) => { if(isOn) ResetAll(); });
+        scaleXSlider.onValueChanged.AddListener(OnScaleXChanged);
+        scaleYSlider.onValueChanged.AddListener(OnScaleYChanged);
+        scaleZSlider.onValueChanged.AddListener(OnScaleZChanged);
+        uniformScaleSlider.onValueChanged.AddListener(OnUniformScaleChanged);
 
-        // Настройка специальных кнопок
-        sliceButton.onValueChanged.AddListener((isOn) => { if(isOn) SliceObject(); });
-        toggleSliceButton.onValueChanged.AddListener((isOn) => OffSlice(isOn));
+        // Reset toggle
+        resetAllToggle.onValueChanged.AddListener(OnResetAllToggled);
+
+        // Component control toggle
+        toggleComponentToggle.onValueChanged.AddListener(ToggleComponent);
+
+        // Small scale toggle
+        smallScaleToggle.onValueChanged.AddListener(OnSmallScaleToggled);
+
+        // Set initial slider values to zero (relative to parent)
+        ResetSlidersToZero();
     }
 
-    private void SetPosition(Vector3 axis, float value)
+    private void OnPositionXChanged(float value)
     {
-        if (targetCube != null)
+        if (targetPlane != null && parent != null)
         {
-            Vector3 newPosition = targetCube.position;
+            targetPlane.position = parent.position + new Vector3(value, targetPlane.localPosition.y, targetPlane.localPosition.z);
+        }
+    }
+
+    private void OnPositionYChanged(float value)
+    {
+        if (targetPlane != null && parent != null)
+        {
+            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, value, targetPlane.localPosition.z);
+        }
+    }
+
+    private void OnPositionZChanged(float value)
+    {
+        if (targetPlane != null && parent != null)
+        {
+            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, targetPlane.localPosition.y, value);
+        }
+    }
+
+    private void OnRotationXChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            if (targetPlane.localEulerAngles.y == 180 || targetPlane.localEulerAngles.z == 180)
+            {
+                targetPlane.localEulerAngles = new Vector3(value, 0, 0);
+            }
+            else
+            {
+                targetPlane.localEulerAngles = new Vector3(value, targetPlane.localEulerAngles.y, targetPlane.localEulerAngles.z);
+            }
+        }
+    }
+
+    private void OnRotationYChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localEulerAngles = new Vector3(targetPlane.localEulerAngles.x, value, targetPlane.localEulerAngles.z);
+        }
+    }
+
+    private void OnRotationZChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localEulerAngles = new Vector3(targetPlane.localEulerAngles.x, targetPlane.localEulerAngles.y, value);
+        }
+    }
+
+    private void OnScaleXChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localScale = new Vector3(value, targetPlane.localScale.y, targetPlane.localScale.z);
+            UpdateUniformScaleSlider();
+        }
+    }
+
+    private void OnScaleYChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localScale = new Vector3(targetPlane.localScale.x, value, targetPlane.localScale.z);
+            UpdateUniformScaleSlider();
+        }
+    }
+
+    private void OnScaleZChanged(float value)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localScale = new Vector3(targetPlane.localScale.x, targetPlane.localScale.y, value);
+            UpdateUniformScaleSlider();
+        }
+    }
+
+    private void OnUniformScaleChanged(float value)
+{
+    if (targetPlane != null)
+    {
+        // Сохраняем текущие пропорции
+        Vector3 originalScale = targetPlane.localScale;
+        
+        // Находим максимальный компонент текущего масштаба
+        float maxComponent = Mathf.Max(originalScale.x, originalScale.y, originalScale.z);
+        
+        // Если все компоненты масштаба равны (уже uniform), просто применяем новое значение
+        if (Mathf.Approximately(originalScale.x, originalScale.y) && 
+            Mathf.Approximately(originalScale.y, originalScale.z))
+        {
+            Vector3 newScale = new Vector3(value, value, value);
+            targetPlane.localScale = newScale;
+        }
+        else
+        {
+            // Рассчитываем коэффициенты пропорций
+            float xRatio = originalScale.x / maxComponent;
+            float yRatio = originalScale.y / maxComponent;
+            float zRatio = originalScale.z / maxComponent;
             
-            if (axis == Vector3.right) // X axis
-                newPosition.x = value;
-            else if (axis == Vector3.up) // Y axis
-                newPosition.y = value;
-            else if (axis == Vector3.forward) // Z axis
-                newPosition.z = value;
+            // Применяем новое значение с сохранением пропорций
+            Vector3 newScale = new Vector3(
+                Mathf.Clamp(value * xRatio, minScale, maxScale),
+                Mathf.Clamp(value * yRatio, minScale, maxScale),
+                Mathf.Clamp(value * zRatio, minScale, maxScale)
+            );
+            
+            targetPlane.localScale = newScale;
+            
+            // Если какой-то компонент достиг предела, корректируем другие
+            if (newScale.x >= maxScale || newScale.x <= minScale ||
+                newScale.y >= maxScale || newScale.y <= minScale ||
+                newScale.z >= maxScale || newScale.z <= minScale)
+            {
+                // Находим самый "проблемный" компонент (который первым достиг предела)
+                float limitingFactor = 1f;
+                if (newScale.x >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * xRatio));
+                if (newScale.y >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * yRatio));
+                if (newScale.z >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * zRatio));
+                if (newScale.x <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * xRatio));
+                if (newScale.y <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * yRatio));
+                if (newScale.z <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * zRatio));
                 
-            targetCube.position = newPosition;
-        }
-    }
-
-    private void RotateCube(Vector3 axis, float angle)
-    {
-        if (targetCube != null)
-        {
-            Vector3 currentRotation = targetCube.eulerAngles;
-            
-            if (axis == Vector3.right) // X axis
-            {
-                targetCube.rotation = Quaternion.Euler(initialRotation.x + angle, currentRotation.y, currentRotation.z);
-            }
-            else if (axis == Vector3.up) // Y axis
-            {
-                targetCube.rotation = Quaternion.Euler(currentRotation.x, initialRotation.y + angle, currentRotation.z);
-            }
-            else if (axis == Vector3.forward) // Z axis
-            {
-                targetCube.rotation = Quaternion.Euler(currentRotation.x, currentRotation.y, initialRotation.z + angle);
+                // Применяем корректировку
+                newScale = new Vector3(
+                    value * xRatio * limitingFactor,
+                    value * yRatio * limitingFactor,
+                    value * zRatio * limitingFactor
+                );
+                targetPlane.localScale = newScale;
             }
         }
-    }
-
-    private void SetScale(Vector3 axis, float value)
-    {
-        if (targetCube == null) return;
-
-        Vector3 newScale = targetCube.localScale;
         
-        if (axis == Vector3.right) // X axis
-            newScale.x = value;
-        else if (axis == Vector3.up) // Y axis
-            newScale.y = value;
-        else if (axis == Vector3.forward) // Z axis
-            newScale.z = value;
-            
-        targetCube.localScale = newScale;
+        // Обновляем слайдеры
+        scaleXSlider.SetValueWithoutNotify(targetPlane.localScale.x);
+        scaleYSlider.SetValueWithoutNotify(targetPlane.localScale.y);
+        scaleZSlider.SetValueWithoutNotify(targetPlane.localScale.z);
     }
+}
 
-    private void SetUniformScale(float value)
+    private void UpdateUniformScaleSlider()
     {
-        if (targetCube == null) return;
-        targetCube.localScale = new Vector3(value, value, value);
-    }
-
-    private void SliceObject()
-    {
-        if (targetCube == null) return;
-
-        Vector3 newScale = targetCube.localScale;
-        newScale.y = sliceHeight;
-        targetCube.localScale = newScale;
-        isSliced = true;
-        scaleYSlider.value = sliceHeight;
-    }
-
-    public void OffSlice(bool isOn)
-    {
-        if (!isOn) return;
-        
-        Debug.Log("Отключение среза или разреза");
-        ResetAll();
-        targetCube.position = new Vector3(10, 0, 0);
-        targetCube.localScale = new Vector3(0.6751387f, 0.244536f, 0.8415973f);
-        CutoutBox crossSectionCube_SC = targetCube.gameObject.GetComponent<UnityVolumeRendering.CutoutBox>();
-        if (crossSectionCube_SC != null)
+        // Only update uniform scale slider if all scales are equal
+        if (Mathf.Approximately(targetPlane.localScale.x, targetPlane.localScale.y) && 
+            Mathf.Approximately(targetPlane.localScale.y, targetPlane.localScale.z))
         {
-            crossSectionCube_SC.targetObject = null;
+            uniformScaleSlider.SetValueWithoutNotify(targetPlane.localScale.x);
         }
     }
 
-    private void ResetPosition()
+    private void OnResetAllToggled(bool isOn)
     {
-        if (targetCube != null)
+        if (isOn)
         {
-            targetCube.position = Vector3.zero;
-            positionXSlider.value = 0;
-            positionYSlider.value = 0;
-            positionZSlider.value = 0;
-        }
-    }
-
-    private void ResetRotation()
-    {
-        if (targetCube != null)
-        {
-            targetCube.rotation = Quaternion.Euler(initialRotation);
-            rotateXSlider.value = 0;
-            rotateYSlider.value = 0;
-            rotateZSlider.value = 0;
-        }
-    }
-
-    private void ResetScale()
-    {
-        if (targetCube != null)
-        {
-            targetCube.localScale = defaultScale;
-            scaleXSlider.value = defaultScale.x;
-            scaleYSlider.value = defaultScale.y;
-            scaleZSlider.value = defaultScale.z;
-            scaleUniformSlider.value = defaultScale.x;
+            ResetAll();
+            resetAllToggle.isOn = false; // Automatically un-toggle after reset
         }
     }
 
     private void ResetAll()
     {
-        ResetPosition();
-        ResetRotation();
-        ResetScale();
+        if (targetPlane == null || parent == null)
+            return;
+
+        // Reset position and rotation to parent's values
+        targetPlane.position = parent.position;
+        targetPlane.rotation = parent.rotation;
+        
+        // Reset scale to initial value
+        targetPlane.localScale = initialScale;
+        
+        // Reset sliders to zero/initial values
+        ResetSlidersToZero();
+        
+        // Reset toggles
+        smallScaleToggle.isOn = false;
+    }
+
+    private void ResetSlidersToZero()
+    {
+        positionXSlider.value = 0;
+        positionYSlider.value = 0;
+        positionZSlider.value = 0;
+        
+        rotationXSlider.value = 0;
+        rotationYSlider.value = 0;
+        rotationZSlider.value = 0;
+        
+        scaleXSlider.value = initialScale.x;
+        scaleYSlider.value = initialScale.y;
+        scaleZSlider.value = initialScale.z;
+        uniformScaleSlider.value = initialScale.x;
+    }
+
+    private void ToggleComponent(bool isOn)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.gameObject.SetActive(!isOn);
+        }
+    }
+
+    private void OnSmallScaleToggled(bool isOn)
+    {
+        if (targetPlane != null)
+        {
+            targetPlane.localScale = isOn ? smallScale : initialScale;
+            
+            // Update sliders
+            if (isOn)
+            {
+                scaleXSlider.SetValueWithoutNotify(smallScale.x);
+                scaleYSlider.SetValueWithoutNotify(smallScale.y);
+                scaleZSlider.SetValueWithoutNotify(smallScale.z);
+                uniformScaleSlider.SetValueWithoutNotify(smallScale.x);
+            }
+            else
+            {
+                scaleXSlider.SetValueWithoutNotify(initialScale.x);
+                scaleYSlider.SetValueWithoutNotify(initialScale.y);
+                scaleZSlider.SetValueWithoutNotify(initialScale.z);
+                uniformScaleSlider.SetValueWithoutNotify(initialScale.x);
+            }
+        }
     }
 }

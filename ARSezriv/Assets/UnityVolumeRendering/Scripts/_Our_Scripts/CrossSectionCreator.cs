@@ -7,6 +7,7 @@ using UnityVolumeRendering;
 public class CrossSectionCreator : MonoBehaviour
 {
     public GameObject Cross_Section_Plane;
+    [SerializeField] private Transform Parent;
 
     public VolumeRenderedObject volumeObject;
 
@@ -20,7 +21,7 @@ public class CrossSectionCreator : MonoBehaviour
     public void Start()
     {
 
-        //CreateSlicer();
+        Cross_Section_Plane.SetActive(false);
 
     }
     IEnumerator WaitToEnableKostil()
@@ -33,6 +34,7 @@ public class CrossSectionCreator : MonoBehaviour
 
     public void CreateSlicer()
     {
+        Cross_Section_Plane.SetActive(true);
 
         //GameObject.FindObjectOfType<CubeController>().OffSlice(true);
 
@@ -60,7 +62,7 @@ public class CrossSectionCreator : MonoBehaviour
 
         crossSectionManager = Gen_Object.AddComponent<UnityVolumeRendering.CrossSectionManager>();
         crossSectionPlane_SC = Cross_Section_Plane.GetComponent<UnityVolumeRendering.CrossSectionPlane>();
-        Cross_Section_Plane.transform.position = Gen_Object.transform.position;
+        Parent.position = Gen_Object.transform.position;
         crossSectionPlane_SC.targetObject = volumeObject;
         StartCoroutine(WaitToEnableKostil());
 
