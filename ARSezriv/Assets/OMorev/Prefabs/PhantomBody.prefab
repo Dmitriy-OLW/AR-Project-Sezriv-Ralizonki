@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 856387753304121403}
   - component: {fileID: 5879847385367456048}
   - component: {fileID: 5596770499962807979}
+  - component: {fileID: 6480209712289404740}
   m_Layer: 0
   m_Name: PhantomBody
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6480209712289404740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144767457609710877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b5c7a0d9567f0f45b8f4c5c73c95bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
