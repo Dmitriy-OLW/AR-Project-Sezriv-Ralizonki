@@ -64,6 +64,7 @@ public class CrossSection_box : MonoBehaviour
 
         crossSectionCube_SC.targetObject = volumeObject;
         Parent.position = Gen_Object.transform.position + positionOffset;
+        Parent.rotation = Gen_Object.transform.rotation;
         StartCoroutine(WaitToEnableKostil());
 
     }

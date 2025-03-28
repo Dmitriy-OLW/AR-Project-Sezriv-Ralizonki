@@ -18,6 +18,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     public Vector3 rotationOffset = Vector3.zero;
     
     [SerializeField] private Toggle toggleComponentToggle;
+    [SerializeField] private Vector3 Usi_scale = new Vector3(0.1f, 0.1f, 0.1f);
     
     [Header("В скрипте добавлять компонет для захвата датасета руками")]
     private bool isActive = true;
@@ -25,6 +26,8 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private bool timerRunning = false;
     private bool objectFound = false;
     private VolumeRenderedObject currentVolumeObject; // Текущий обрабатываемый объект
+    private bool ItIsUSI = false;
+    
 
     private void Start()
     {
@@ -116,6 +119,12 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     {
 
         GameObject.FindObjectOfType<CreateTFFile>().LoadFile();
+        if (ItIsUSI)
+        {
+            founddataset.transform.localScale = Usi_scale;
+            GameObject.FindObjectOfType<CrossSection_box>().CreateSlicer_for_YSI();
+            GameObject.FindObjectOfType<CubeController>().ApplyCustomScale();
+        }
     }
 
     // Метод для ручного включения
@@ -164,6 +173,11 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         {
             Debug.LogWarning("MeshRenderer not found in dataset children");
         }
+    }
+
+    public void Usi_Bool(bool value)
+    {
+        ItIsUSI = value;
     }
 
 

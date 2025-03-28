@@ -38,6 +38,10 @@ public class CubeController : MonoBehaviour
     private Vector3 smallScale = new Vector3(0.5f, 0.003f, 0.5f);
     private const float minScale = 0.001f;
     private const float maxScale = 1f;
+    
+    [Header("Custom Scale Settings")]
+    [SerializeField] private Vector3 customScale = new Vector3(0.6751387f, 0.244536f, 0.8415973f);
+    [SerializeField] private float scaleFactor = 0.1f;
 
     private void Start()
     {
@@ -323,5 +327,36 @@ public class CubeController : MonoBehaviour
                 uniformScaleSlider.SetValueWithoutNotify(initialScale.x);
             }
         }
+    }
+
+    public void ApplyCustomScale()
+    {
+        //targetPlane.localPosition = parent.localPosition + new Vector3(0.0073f, 0, -0.0048f);
+        if (targetPlane != null)
+        {
+            Vector3 newScale = new Vector3(
+                customScale.x * scaleFactor,
+                customScale.y * scaleFactor,
+                customScale.z * scaleFactor
+            );
+            
+            targetPlane.localScale = newScale;
+            
+            // Update sliders to reflect the new scale
+            scaleXSlider.SetValueWithoutNotify(newScale.x);
+            scaleYSlider.SetValueWithoutNotify(newScale.y);
+            scaleZSlider.SetValueWithoutNotify(newScale.z);
+            uniformScaleSlider.SetValueWithoutNotify(newScale.x); // Assuming uniform scale should show X value
+
+            positionXSlider.value = 0.009f;
+            positionZSlider.value = -0.007f;
+        }
+    }
+    
+    public void SetCustomScale(Vector3 newScale, float newFactor)
+    {
+        customScale = newScale;
+        scaleFactor = newFactor;
+        ApplyCustomScale();
     }
 }
