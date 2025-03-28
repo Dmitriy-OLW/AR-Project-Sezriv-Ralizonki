@@ -3,16 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityVolumeRendering;
+
 public class Import_VolumeObjectChecker : MonoBehaviour
 {
     [Header("Сюда объект, к которому притягивается датасет")]
     public GameObject targetObject; // Целевой объект в сцене
     public float disableDelay = 10f; // Задержка перед отключением (10 сек)
+    
+    [Header("Дополнительное смещение и поворот")]
+    public Vector3 positionOffset = Vector3.zero;
+    public Vector3 rotationOffset = Vector3.zero;
+    
     [Header("В скрипте добавлять компонет для захвата датасета руками")]
     private bool isActive = true;
     private float timer = 0f;
     private bool timerRunning = false;
     private bool objectFound = false;
+    private VolumeRenderedObject currentVolumeObject; // Текущий обрабатываемый объект
 
     void FixedUpdate()
     {
@@ -24,6 +31,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= disableDelay)
             {
+                OnTimerEnd();
                 SetActive(false);
                 return;
             }
@@ -35,9 +43,13 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         {
             if (volObj.gameObject != targetObject && volObj.gameObject != this.gameObject)
             {
-                // Перемещаем объект
-                volObj.transform.position = targetObject.transform.position;
-                volObj.transform.rotation = targetObject.transform.rotation;
+                currentVolumeObject = volObj;
+                
+                // Перемещаем объект с учетом смещения
+                volObj.transform.position = targetObject.transform.position + positionOffset;
+                
+                // Поворачиваем объект с учетом смещения
+                volObj.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(rotationOffset);
                 
                 Debug.Log($"Объект {volObj.name} перемещен к {targetObject.name}");
 
@@ -45,12 +57,23 @@ public class Import_VolumeObjectChecker : MonoBehaviour
                 {
                     OnObjectFound();
                 }
-                // Запускаем таймер
-                //timer = 0f;
-                timerRunning = true;
                 
+                timerRunning = true;
                 return;
             }
+        }
+    }
+    
+    // Метод для обновления смещения в реальном времени
+    public void UpdateOffset(Vector3 newPositionOffset, Vector3 newRotationOffset)
+    {
+        positionOffset = newPositionOffset;
+        rotationOffset = newRotationOffset;
+        
+        if (currentVolumeObject != null)
+        {
+            currentVolumeObject.transform.position = targetObject.transform.position + positionOffset;
+            currentVolumeObject.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(rotationOffset);
         }
     }
     
@@ -58,10 +81,17 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private void OnObjectFound()
     {
         // Этот метод сработает только один раз при первом обнаружении объекта
-        Debug.Log("Здесь писать добавление  компонета для захвата датасета руками");
+        Debug.Log("Здесь писать добавление компонета для захвата датасета руками");
         objectFound = true;
         
         // Здесь можно добавить свою логику, которая должна выполниться один раз
+    }
+    
+    // Пустой метод, вызываемый при завершении таймера
+    private void OnTimerEnd()
+    {
+        
+        GameObject.FindObjectOfType<CreateTFFile>().LoadFile();
     }
 
     // Метод для ручного включения
