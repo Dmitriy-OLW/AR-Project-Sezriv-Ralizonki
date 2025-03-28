@@ -9018,12 +9018,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 741255009}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &767073859 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7033574305173892314, guid: 9bfe7b57eb082184f8db80017e2e5bac,
-    type: 3}
-  m_PrefabInstance: {fileID: 437636072}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &776056588
 GameObject:
   m_ObjectHideFlags: 0
@@ -22772,9 +22766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc6a23b88361f8498219ac2b71b4317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHandAnchorOffset: {x: 0, y: 0.14, z: 0}
-  attackmentPoint: {fileID: 767073859}
-  rotOffset: {x: 0.70710677, y: -0.00000003090862, z: -0.70710677, w: 0.00000003090862}
   _anchorPrefab: {fileID: 2144767457609710877, guid: 9a05d219ccec6cb4997ef72a8d97d4db,
     type: 3}
   _followHand: 1
