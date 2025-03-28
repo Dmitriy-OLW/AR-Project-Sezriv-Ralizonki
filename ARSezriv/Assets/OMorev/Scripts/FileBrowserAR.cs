@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityVolumeRendering.RuntimeFileBrowser.RuntimeFileBrowserComponent;
 
 public class FileBrowserAR : MonoBehaviour
 {
@@ -89,10 +86,6 @@ public class FileBrowserAR : MonoBehaviour
                 InitializeSecondaryButtons();
             }
         });
-    }
-    void CreateDefaultDiskButton()
-    {
-
     }
     void InitializeMainButtons()
     {
