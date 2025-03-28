@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityVolumeRendering.RuntimeFileBrowser.RuntimeFileBrowserComponent;
 
 public class FileBrowserAR : MonoBehaviour
@@ -14,30 +15,25 @@ public class FileBrowserAR : MonoBehaviour
     [SerializeField] GameObject _fileButtonPrefab;
 
     List<GameObject> primaryButtons = new List<GameObject>();
-    List<GameObject > secondaryButtons = new List<GameObject>();    
+    List<GameObject > secondaryButtons = new List<GameObject>();
 
-    void CreateButtonForDirectory(string directory, FileButtonType buttonType, string buttonName)
+    void CreateButtonForDirectory(string directory, FileButtonType buttonType, string buttonName, bool isEnableInteraction)
     {
-        GameObject newButton = Instantiate(_fileButtonPrefab, buttonType == FileButtonType.Primary ? _mainButtonsParentObject.transform : _secondaryButtonsParentObject.transform);
-        
-        newButton.GetComponent<UnityEngine.UI.Toggle>().onValueChanged.AddListener((isOn) =>
-        {
-            _directoryText.text = directory;
-
-        });
-    }
-    void CreateButtonForDirectory(Environment.SpecialFolder directory, FileButtonType buttonType, string buttonName)
-    {
-
         GameObject newButton = Instantiate(_fileButtonPrefab, buttonType == FileButtonType.Primary ? _mainButtonsParentObject.transform : _secondaryButtonsParentObject.transform);
         newButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonName;
-        newButton.GetComponent<UnityEngine.UI.Toggle>().onValueChanged.AddListener((isOn) =>
+        if(isEnableInteraction)
         {
-            _directoryText.text = Environment.GetFolderPath(directory);
+            newButton.GetComponent<UnityEngine.UI.Toggle>().onValueChanged.AddListener((isOn) =>
+            {
+                _directoryText.text = directory;
+                InitializeSecondaryButtons();
+            });
+        }
+        else
+        {
+            newButton.GetComponent<UnityEngine.UI.Toggle>().interactable = false;
+        }
 
-            InitializeSecondaryButtons();
-
-        });
         if (buttonType == FileButtonType.Primary)
         {
             primaryButtons.Add(newButton);
@@ -47,54 +43,91 @@ public class FileBrowserAR : MonoBehaviour
             secondaryButtons.Add(newButton);
         }
     }
+    void CreateButtonForDirectory(Environment.SpecialFolder directory, FileButtonType buttonType, string buttonName, bool isEnableInteraction)
+    {
+        GameObject newButton = Instantiate(_fileButtonPrefab, buttonType == FileButtonType.Primary ? _mainButtonsParentObject.transform : _secondaryButtonsParentObject.transform);
+        newButton.GetComponentInChildren<TextMeshProUGUI>().text = buttonName;
+        if (isEnableInteraction)
+        {
+            newButton.GetComponent<UnityEngine.UI.Toggle>().onValueChanged.AddListener((isOn) =>
+            {
+                _directoryText.text = Environment.GetFolderPath(directory);
 
+                InitializeSecondaryButtons();
+
+            });
+        }
+        else
+        {
+            newButton.GetComponent<UnityEngine.UI.Toggle>().interactable = false;
+        }
+
+        if (buttonType == FileButtonType.Primary)
+        {
+            primaryButtons.Add(newButton);
+        }
+        else
+        {
+            secondaryButtons.Add(newButton);
+        }
+    }
+    void CreateBackButton()
+    {
+        GameObject newButton = Instantiate(_fileButtonPrefab, _mainButtonsParentObject.transform);
+        newButton.GetComponentInChildren<TextMeshProUGUI>().text = "Назад";
+        newButton.GetComponent<UnityEngine.UI.Toggle>().onValueChanged.AddListener((isOn) => 
+        {
+            if (!string.IsNullOrEmpty(_directoryText.text) && Directory.Exists(_directoryText.text))
+            {
+                string newPath = "";
+                try
+                {
+                    newPath = Directory.GetParent(_directoryText.text).FullName;
+                }catch{}
+
+                if (!string.IsNullOrEmpty(newPath) && Directory.Exists(newPath)) _directoryText.text = newPath;
+                InitializeSecondaryButtons();
+            }
+        });
+    }
+    void CreateDefaultDiskButton()
+    {
+
+    }
     void InitializeMainButtons()
     {
-        CreateButtonForDirectory(Environment.SpecialFolder.MyDocuments, FileButtonType.Primary, "Documents");
+        CreateBackButton();
+        CreateButtonForDirectory(Environment.SpecialFolder.MyDocuments, FileButtonType.Primary, "Документы", true);
+        CreateButtonForDirectory(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), FileButtonType.Primary, "Рабочий стол",true);
+
+        foreach (DriveInfo driveInfo in DriveInfo.GetDrives())
+        {
+            CreateButtonForDirectory(driveInfo.Name, FileButtonType.Primary, driveInfo.Name, true);
+        }
+
     }
     void InitializeSecondaryButtons()
     {
         ClearSecondaryButtons();
 
-
         if (!string.IsNullOrEmpty(_directoryText.text) && Directory.Exists(_directoryText.text))
         {
-            //scrollPos = GUILayout.BeginScrollView(scrollPos);
-            // Draw directories
             foreach (string dir in Directory.GetDirectories(_directoryText.text))
             {
                 DirectoryInfo dirInfo = new DirectoryInfo(dir);
-                //if (GUILayout.Button(dirInfo.Name))
-                //{
-                //    _directoryText.text = dir;
-                //}
-                CreateButtonForDirectory(dir, FileButtonType.Secondary, dirInfo.Name);
+                CreateButtonForDirectory(dir, FileButtonType.Secondary, "[] " + dirInfo.Name,true);
             }
-            // Draw files
-            //if (dialogMode == DialogMode.OpenFile || dialogMode == DialogMode.SaveFile)
-            //{
+            foreach (string file in Directory.GetFiles(_directoryText.text))
+            {
+                FileInfo fileInfo = new FileInfo(file);
 
-            //}
-            //foreach (string file in Directory.GetFiles(_directoryText.text))
-            //{
-            //    FileInfo fileInfo = new FileInfo(file);
-            //    if (GUILayout.Button(fileInfo.Name))
-            //    {
-            //        selectedFile = fileInfo.FullName;
-            //        fileName = Path.GetFileName(selectedFile);
-            //    }
-            //}
-            //GUILayout.EndScrollView();
+                CreateButtonForDirectory(Path.GetFileName(fileInfo.FullName), FileButtonType.Secondary, fileInfo.Name,false);
+            }
         }
-        //GUILayout.EndVertical();
     }
     enum FileButtonType
     {
         Primary, Secondary
-    }
-    private void Start()
-    {
-        InitializeMainButtons();
     }
 
     void ClearSecondaryButtons()
@@ -104,5 +137,35 @@ public class FileBrowserAR : MonoBehaviour
             Destroy(button);        
         }
         secondaryButtons.Clear();
+    }
+    void ClearPrimaryButtons()
+    {
+        foreach (GameObject button in primaryButtons)
+        {
+            Destroy(button);
+        }
+        primaryButtons.Clear();
+    }
+    void ClearButtons()
+    {
+        ClearPrimaryButtons();
+        ClearSecondaryButtons();
+    }
+    string GetParentDirectory(string currentDirectory)
+    {
+        DirectoryInfo parentDir = Directory.GetParent(currentDirectory);
+        if (parentDir != null)
+            return parentDir.FullName;
+        else
+            return "";
+    }
+
+    private void OnEnable()
+    {
+        InitializeMainButtons();
+    }
+    private void OnDisable()
+    {
+        ClearButtons();
     }
 }
