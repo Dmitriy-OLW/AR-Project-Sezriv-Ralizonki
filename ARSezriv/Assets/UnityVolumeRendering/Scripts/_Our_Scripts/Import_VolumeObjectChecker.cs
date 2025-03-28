@@ -3,17 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityVolumeRendering;
+using UnityEngine.UI;
 
 public class Import_VolumeObjectChecker : MonoBehaviour
 {
     [Header("Сюда объект, к которому притягивается датасет")]
     public GameObject targetObject; // Целевой объект в сцене
     public float disableDelay = 10f; // Задержка перед отключением (10 сек)
-
+    public GameObject founddataset;
+    
     
     [Header("Дополнительное смещение и поворот")]
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
+    
+    [SerializeField] private Toggle toggleComponentToggle;
     
     [Header("В скрипте добавлять компонет для захвата датасета руками")]
     private bool isActive = true;
@@ -22,8 +26,22 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private bool objectFound = false;
     private VolumeRenderedObject currentVolumeObject; // Текущий обрабатываемый объект
 
+    private void Start()
+    {
+        toggleComponentToggle.onValueChanged.AddListener(ToggleMeshRenderer);
+    }
+
     void FixedUpdate()
     {
+        if (founddataset != null && !isActive)
+        {
+            // Перемещаем объект с учетом смещения
+            founddataset.transform.position = targetObject.transform.position + positionOffset;
+                
+            // Поворачиваем объект с учетом смещения
+            founddataset.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(rotationOffset);
+        }
+        
         if (!isActive) return;
 
         // Если таймер запущен, отсчитываем время
@@ -32,8 +50,8 @@ public class Import_VolumeObjectChecker : MonoBehaviour
             timer += Time.deltaTime;
             if (timer >= disableDelay)
             {
-                OnTimerEnd();
-                SetActive(false);
+                OnTimerEnd(); 
+                _SetActive(false);
                 return;
             }
         }
@@ -56,6 +74,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
 
                 if (!objectFound)
                 {
+                    founddataset = volObj.gameObject;
                     OnObjectFound(volObj.gameObject);
                 }
                 
@@ -100,11 +119,11 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     }
 
     // Метод для ручного включения
-    public void SetActive(bool active)
+    public void _SetActive(bool active)
     {
         objectFound = false;
         isActive = active;
-        enabled = active;
+        //enabled = active;
         timerRunning = false;
         timer = 0f;
         
@@ -122,6 +141,30 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     public void ActivateTemporarily(float duration)
     {
         disableDelay = duration;
-        SetActive(true);
+        _SetActive(true);
     }
+    
+    public void ToggleMeshRenderer(bool isOn)
+    {
+        if (founddataset == null)
+        {
+            Debug.LogWarning("No dataset found to toggle MeshRenderer");
+            return;
+        }
+
+        // Ищем MeshRenderer в дочерних объектах
+        MeshRenderer meshRenderer = founddataset.GetComponentInChildren<MeshRenderer>(true);
+        
+        if (meshRenderer != null)
+        {
+            meshRenderer.enabled = isOn;
+            Debug.Log($"MeshRenderer {(isOn ? "enabled" : "disabled")}");
+        }
+        else
+        {
+            Debug.LogWarning("MeshRenderer not found in dataset children");
+        }
+    }
+
+
 }
