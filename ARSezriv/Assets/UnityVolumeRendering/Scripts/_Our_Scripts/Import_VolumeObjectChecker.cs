@@ -9,6 +9,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     [Header("Сюда объект, к которому притягивается датасет")]
     public GameObject targetObject; // Целевой объект в сцене
     public float disableDelay = 10f; // Задержка перед отключением (10 сек)
+
     
     [Header("Дополнительное смещение и поворот")]
     public Vector3 positionOffset = Vector3.zero;
@@ -55,7 +56,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
 
                 if (!objectFound)
                 {
-                    OnObjectFound();
+                    OnObjectFound(volObj.gameObject);
                 }
                 
                 timerRunning = true;
@@ -78,19 +79,23 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     }
     
     // Пустой метод, вызываемый при первом обнаружении объекта
-    private void OnObjectFound()
+    private void OnObjectFound(GameObject volObj)
     {
+        //добавление необходимых компонентов
+        //volObj.AddComponent<MetaSDK_Compounent>(); Напищи свои компонеты
+        
+        
+        
         // Этот метод сработает только один раз при первом обнаружении объекта
         Debug.Log("Здесь писать добавление компонета для захвата датасета руками");
         objectFound = true;
-        
-        // Здесь можно добавить свою логику, которая должна выполниться один раз
+
     }
     
     // Пустой метод, вызываемый при завершении таймера
     private void OnTimerEnd()
     {
-        
+
         GameObject.FindObjectOfType<CreateTFFile>().LoadFile();
     }
 

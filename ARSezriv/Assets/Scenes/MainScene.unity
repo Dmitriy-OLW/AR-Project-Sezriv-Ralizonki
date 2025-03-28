@@ -430,7 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 50480833}
   m_Layer: 0
-  m_Name: CrossSectionPlane
+  m_Name: CrossSectionPlane_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6961,7 +6961,7 @@ PrefabInstance:
     - target: {fileID: 5690605715987124044, guid: 9bfe7b57eb082184f8db80017e2e5bac,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -19837,7 +19837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1235559535
 Transform:
   m_ObjectHideFlags: 0
@@ -21090,7 +21090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1417358286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23881,7 +23881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1608441124}
   m_Layer: 0
-  m_Name: CutoutBox
+  m_Name: CutoutBox_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
