@@ -20,6 +20,7 @@ public class PhantomInstance : MonoBehaviour
                     anchoringManager.SetOnHandAnchor(phantom);
                 }
             }
+            PlacedPhantomMark mark = gameObject.AddComponent<PlacedPhantomMark>();
         }
     }
 

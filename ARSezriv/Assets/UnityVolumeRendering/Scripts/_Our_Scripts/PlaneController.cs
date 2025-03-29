@@ -6,6 +6,7 @@ public class PlaneController : MonoBehaviour
 {
     [Header("Plane Reference")]
     [SerializeField] private Transform targetPlane;
+    [SerializeField] private Transform Prostavka;
     [SerializeField] private Transform parent;
 
     [Header("Movement Settings")]
@@ -67,7 +68,7 @@ public class PlaneController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(value, targetPlane.localPosition.y, targetPlane.localPosition.z);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(value, targetPlane.localPosition.y, targetPlane.localPosition.z);
         }
     }
 
@@ -75,7 +76,7 @@ public class PlaneController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, value, targetPlane.localPosition.z);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(targetPlane.localPosition.x, value, targetPlane.localPosition.z);
         }
     }
 
@@ -83,7 +84,7 @@ public class PlaneController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, targetPlane.localPosition.y, value);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(targetPlane.localPosition.x, targetPlane.localPosition.y, value);
         }
     }
 
@@ -91,7 +92,7 @@ public class PlaneController : MonoBehaviour
     {
         if (targetPlane != null)
         {
-            
+
             if (targetPlane.localEulerAngles.y == 180 || targetPlane.localEulerAngles.z == 180)
             {
                 targetPlane.localEulerAngles = new Vector3(value, 0, 0);
@@ -100,7 +101,7 @@ public class PlaneController : MonoBehaviour
             {
                 targetPlane.localEulerAngles = new Vector3(value, targetPlane.localEulerAngles.y, targetPlane.localEulerAngles.z);
             }
-            
+
         }
     }
 
@@ -138,7 +139,7 @@ public class PlaneController : MonoBehaviour
         // Reset position and rotation to parent's values
         targetPlane.position = parent.position;
         targetPlane.rotation = parent.rotation;
-        
+
         // Reset sliders to zero
         ResetSlidersToZero();
     }
@@ -148,7 +149,7 @@ public class PlaneController : MonoBehaviour
         positionXSlider.value = 0;
         positionYSlider.value = 0;
         positionZSlider.value = 0;
-        
+
         rotationXSlider.value = 0;
         rotationYSlider.value = 0;
         rotationZSlider.value = 0;

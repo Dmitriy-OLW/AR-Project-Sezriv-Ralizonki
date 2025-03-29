@@ -6,6 +6,8 @@ public class CubeController : MonoBehaviour
 {
     [Header("Plane Reference")]
     [SerializeField] private Transform targetPlane;
+
+    [SerializeField] private Transform Prostavka;
     [SerializeField] private Transform parent;
 
     [Header("Movement Settings")]
@@ -38,7 +40,7 @@ public class CubeController : MonoBehaviour
     private Vector3 smallScale = new Vector3(0.5f, 0.003f, 0.5f);
     private const float minScale = 0.001f;
     private const float maxScale = 1f;
-    
+
     [Header("Custom Scale Settings")]
     [SerializeField] private Vector3 customScale = new Vector3(0.6751387f, 0.244536f, 0.8415973f);
     [SerializeField] private float scaleFactor = 0.1f;
@@ -101,7 +103,7 @@ public class CubeController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(value, targetPlane.localPosition.y, targetPlane.localPosition.z);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(value, targetPlane.localPosition.y, targetPlane.localPosition.z);
         }
     }
 
@@ -109,7 +111,7 @@ public class CubeController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, value, targetPlane.localPosition.z);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(targetPlane.localPosition.x, value, targetPlane.localPosition.z);
         }
     }
 
@@ -117,7 +119,7 @@ public class CubeController : MonoBehaviour
     {
         if (targetPlane != null && parent != null)
         {
-            targetPlane.position = parent.position + new Vector3(targetPlane.localPosition.x, targetPlane.localPosition.y, value);
+            targetPlane.localPosition = Prostavka.localPosition + new Vector3(targetPlane.localPosition.x, targetPlane.localPosition.y, value);
         }
     }
 
@@ -180,73 +182,73 @@ public class CubeController : MonoBehaviour
     }
 
     private void OnUniformScaleChanged(float value)
-{
-    if (targetPlane != null)
     {
-        // Сохраняем текущие пропорции
-        Vector3 originalScale = targetPlane.localScale;
-        
-        // Находим максимальный компонент текущего масштаба
-        float maxComponent = Mathf.Max(originalScale.x, originalScale.y, originalScale.z);
-        
-        // Если все компоненты масштаба равны (уже uniform), просто применяем новое значение
-        if (Mathf.Approximately(originalScale.x, originalScale.y) && 
-            Mathf.Approximately(originalScale.y, originalScale.z))
+        if (targetPlane != null)
         {
-            Vector3 newScale = new Vector3(value, value, value);
-            targetPlane.localScale = newScale;
-        }
-        else
-        {
-            // Рассчитываем коэффициенты пропорций
-            float xRatio = originalScale.x / maxComponent;
-            float yRatio = originalScale.y / maxComponent;
-            float zRatio = originalScale.z / maxComponent;
-            
-            // Применяем новое значение с сохранением пропорций
-            Vector3 newScale = new Vector3(
-                Mathf.Clamp(value * xRatio, minScale, maxScale),
-                Mathf.Clamp(value * yRatio, minScale, maxScale),
-                Mathf.Clamp(value * zRatio, minScale, maxScale)
-            );
-            
-            targetPlane.localScale = newScale;
-            
-            // Если какой-то компонент достиг предела, корректируем другие
-            if (newScale.x >= maxScale || newScale.x <= minScale ||
-                newScale.y >= maxScale || newScale.y <= minScale ||
-                newScale.z >= maxScale || newScale.z <= minScale)
+            // Сохраняем текущие пропорции
+            Vector3 originalScale = targetPlane.localScale;
+
+            // Находим максимальный компонент текущего масштаба
+            float maxComponent = Mathf.Max(originalScale.x, originalScale.y, originalScale.z);
+
+            // Если все компоненты масштаба равны (уже uniform), просто применяем новое значение
+            if (Mathf.Approximately(originalScale.x, originalScale.y) &&
+                Mathf.Approximately(originalScale.y, originalScale.z))
             {
-                // Находим самый "проблемный" компонент (который первым достиг предела)
-                float limitingFactor = 1f;
-                if (newScale.x >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * xRatio));
-                if (newScale.y >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * yRatio));
-                if (newScale.z >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * zRatio));
-                if (newScale.x <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * xRatio));
-                if (newScale.y <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * yRatio));
-                if (newScale.z <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * zRatio));
-                
-                // Применяем корректировку
-                newScale = new Vector3(
-                    value * xRatio * limitingFactor,
-                    value * yRatio * limitingFactor,
-                    value * zRatio * limitingFactor
-                );
+                Vector3 newScale = new Vector3(value, value, value);
                 targetPlane.localScale = newScale;
             }
+            else
+            {
+                // Рассчитываем коэффициенты пропорций
+                float xRatio = originalScale.x / maxComponent;
+                float yRatio = originalScale.y / maxComponent;
+                float zRatio = originalScale.z / maxComponent;
+
+                // Применяем новое значение с сохранением пропорций
+                Vector3 newScale = new Vector3(
+                    Mathf.Clamp(value * xRatio, minScale, maxScale),
+                    Mathf.Clamp(value * yRatio, minScale, maxScale),
+                    Mathf.Clamp(value * zRatio, minScale, maxScale)
+                );
+
+                targetPlane.localScale = newScale;
+
+                // Если какой-то компонент достиг предела, корректируем другие
+                if (newScale.x >= maxScale || newScale.x <= minScale ||
+                    newScale.y >= maxScale || newScale.y <= minScale ||
+                    newScale.z >= maxScale || newScale.z <= minScale)
+                {
+                    // Находим самый "проблемный" компонент (который первым достиг предела)
+                    float limitingFactor = 1f;
+                    if (newScale.x >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * xRatio));
+                    if (newScale.y >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * yRatio));
+                    if (newScale.z >= maxScale) limitingFactor = Mathf.Min(limitingFactor, maxScale / (value * zRatio));
+                    if (newScale.x <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * xRatio));
+                    if (newScale.y <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * yRatio));
+                    if (newScale.z <= minScale) limitingFactor = Mathf.Min(limitingFactor, minScale / (value * zRatio));
+
+                    // Применяем корректировку
+                    newScale = new Vector3(
+                        value * xRatio * limitingFactor,
+                        value * yRatio * limitingFactor,
+                        value * zRatio * limitingFactor
+                    );
+                    targetPlane.localScale = newScale;
+                }
+            }
+
+            // Обновляем слайдеры
+            scaleXSlider.SetValueWithoutNotify(targetPlane.localScale.x);
+            scaleYSlider.SetValueWithoutNotify(targetPlane.localScale.y);
+            scaleZSlider.SetValueWithoutNotify(targetPlane.localScale.z);
         }
-        
-        // Обновляем слайдеры
-        scaleXSlider.SetValueWithoutNotify(targetPlane.localScale.x);
-        scaleYSlider.SetValueWithoutNotify(targetPlane.localScale.y);
-        scaleZSlider.SetValueWithoutNotify(targetPlane.localScale.z);
     }
-}
 
     private void UpdateUniformScaleSlider()
     {
         // Only update uniform scale slider if all scales are equal
-        if (Mathf.Approximately(targetPlane.localScale.x, targetPlane.localScale.y) && 
+        if (Mathf.Approximately(targetPlane.localScale.x, targetPlane.localScale.y) &&
             Mathf.Approximately(targetPlane.localScale.y, targetPlane.localScale.z))
         {
             uniformScaleSlider.SetValueWithoutNotify(targetPlane.localScale.x);
@@ -270,13 +272,13 @@ public class CubeController : MonoBehaviour
         // Reset position and rotation to parent's values
         targetPlane.position = parent.position;
         targetPlane.rotation = parent.rotation;
-        
+
         // Reset scale to initial value
         targetPlane.localScale = initialScale;
-        
+
         // Reset sliders to zero/initial values
         ResetSlidersToZero();
-        
+
         // Reset toggles
         smallScaleToggle.isOn = false;
     }
@@ -286,11 +288,11 @@ public class CubeController : MonoBehaviour
         positionXSlider.value = 0;
         positionYSlider.value = 0;
         positionZSlider.value = 0;
-        
+
         rotationXSlider.value = 0;
         rotationYSlider.value = 0;
         rotationZSlider.value = 0;
-        
+
         scaleXSlider.value = initialScale.x;
         scaleYSlider.value = initialScale.y;
         scaleZSlider.value = initialScale.z;
@@ -311,7 +313,7 @@ public class CubeController : MonoBehaviour
         if (targetPlane != null)
         {
             targetPlane.localScale = isOn ? smallScale : initialScale;
-            
+
             // Update sliders
             if (isOn)
             {
@@ -340,9 +342,9 @@ public class CubeController : MonoBehaviour
                 customScale.y * scaleFactor,
                 customScale.z * scaleFactor
             );
-            
+
             targetPlane.localScale = newScale;
-            
+
             // Update sliders to reflect the new scale
             scaleXSlider.SetValueWithoutNotify(newScale.x);
             scaleYSlider.SetValueWithoutNotify(newScale.y);
@@ -353,7 +355,7 @@ public class CubeController : MonoBehaviour
             positionZSlider.value = -0.007f;
         }
     }
-    
+
     public void SetCustomScale(Vector3 newScale, float newFactor)
     {
         customScale = newScale;

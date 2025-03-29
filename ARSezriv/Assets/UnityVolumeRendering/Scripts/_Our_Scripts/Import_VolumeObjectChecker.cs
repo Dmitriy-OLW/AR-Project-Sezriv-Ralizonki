@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class Import_VolumeObjectChecker : MonoBehaviour
 {
-    [Header("Сюда объект, к которому притягивается датасет")]
-    public GameObject targetObject; // Целевой объект в сцене
+    //[Header("Сюда объект, к которому притягивается датасет")]
+    public GameObject targetObject { get; private set; } // Целевой объект в сцене
     public float disableDelay = 10f; // Задержка перед отключением (10 сек)
     public GameObject founddataset;
     
@@ -29,7 +29,8 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private bool ItIsUSI = false;
     public int RamkaorCube = 0;
     public GameObject[] Buttons_off_edith;
-    
+    public Slider[] dataset_slider;
+
 
     private void Start()
     {
@@ -37,19 +38,35 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         {
             obg.SetActive(false);
         }
+
+        dataset_slider[0].value = Math.Abs(rotationOffset.x) / 360;
+        dataset_slider[1].value = Math.Abs(rotationOffset.y) / 360;
+        dataset_slider[2].value = Math.Abs(rotationOffset.z) / 360;
         toggleComponentToggle.onValueChanged.AddListener(ToggleMeshRenderer);
     }
 
+
     void FixedUpdate()
     {
-        if (founddataset != null && !isActive)
-        {
-            // Перемещаем объект с учетом смещения
-            founddataset.transform.position = targetObject.transform.position + positionOffset;
-                
-            // Поворачиваем объект с учетом смещения
-            founddataset.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(rotationOffset);
+        if (targetObject == null)
+        { 
+            try
+            {
+                targetObject = GameObject.FindObjectOfType<PlacedPhantomMark>().gameObject;
+            }catch { }
         }
+        else
+        {
+            if ((founddataset != null) && !isActive)
+            {
+                // Перемещаем объект с учетом смещения
+                founddataset.transform.position = targetObject.transform.position + positionOffset;
+
+                // Поворачиваем объект с учетом смещения
+                founddataset.transform.rotation = targetObject.transform.rotation * Quaternion.Euler(rotationOffset);
+            }
+        }
+
         
         if (!isActive) return;
 

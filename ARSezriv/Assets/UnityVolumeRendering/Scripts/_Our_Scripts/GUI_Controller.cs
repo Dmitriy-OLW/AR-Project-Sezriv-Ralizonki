@@ -196,4 +196,9 @@ public class GUI_Controller : MonoBehaviour
         }
     }
 
+    public void ActivateMainMenuAfterAnchoring()
+    {
+        ActivateOnly(Menu_Mas[0]);
+    }
+
 }

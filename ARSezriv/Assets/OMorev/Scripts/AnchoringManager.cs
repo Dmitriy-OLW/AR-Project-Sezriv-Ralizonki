@@ -25,6 +25,11 @@ public class AnchoringManager : MonoBehaviour
     {
         OnHandAnchor = onHand;
         OnHandAnchor.gameObject.SetActive(false);
-        Debug.Log("FUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK");
+    }
+
+    public void ReturnPlacedAnchorToDefaultPosition()
+    {
+        FindObjectOfType<PlacedPhantomMark>().transform.position = FindObjectOfType<PlacedPhantomMark>().positionContainer;
+        FindObjectOfType<PlacedPhantomMark>().transform.rotation = FindObjectOfType<PlacedPhantomMark>().rotationContainer;
     }
 }
