@@ -43,7 +43,7 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         foreach (Slider slider in dataset_slider_rotation)
         {
             slider.minValue = 0;
-            slider.minValue = 360;
+            slider.maxValue = 360;
         }
         foreach (Slider slider in dataset_slider_position)
         {

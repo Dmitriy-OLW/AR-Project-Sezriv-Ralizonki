@@ -257,11 +257,12 @@ public class CubeController : MonoBehaviour
 
     private void OnResetAllToggled(bool isOn)
     {
-        if (isOn)
-        {
-            ResetAll();
-            resetAllToggle.isOn = false; // Automatically un-toggle after reset
-        }
+        ResetAll();
+        resetAllToggle.isOn = false; // Automatically un-toggle after reset
+        //if (isOn)
+        //{
+            
+        //}
     }
 
     private void ResetAll()
