@@ -29,7 +29,9 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private bool ItIsUSI = false;
     public int RamkaorCube = 0;
     public GameObject[] Buttons_off_edith;
-    public Slider[] dataset_slider;
+    public Slider[] dataset_slider_rotation;
+    public Slider[] dataset_slider_position;
+    
 
 
     private void Start()
@@ -38,16 +40,37 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         {
             obg.SetActive(false);
         }
+        foreach (Slider slider in dataset_slider_rotation)
+        {
+            slider.minValue = 0;
+            slider.minValue = 360;
+        }
+        foreach (Slider slider in dataset_slider_position)
+        {
+            slider.minValue = -0.3f;
+            slider.maxValue = 0.3f;
+        }
 
-        dataset_slider[0].value = Math.Abs(rotationOffset.x) / 360;
-        dataset_slider[1].value = Math.Abs(rotationOffset.y) / 360;
-        dataset_slider[2].value = Math.Abs(rotationOffset.z) / 360;
+        dataset_slider_rotation[0].value = Math.Abs(rotationOffset.x);
+        dataset_slider_rotation[1].value = Math.Abs(rotationOffset.y);
+        dataset_slider_rotation[2].value = Math.Abs(rotationOffset.z);
+        dataset_slider_position[0].value = positionOffset.x;
+        dataset_slider_position[1].value = positionOffset.y;
+        dataset_slider_position[2].value = positionOffset.z;
         toggleComponentToggle.onValueChanged.AddListener(ToggleMeshRenderer);
     }
 
 
     void FixedUpdate()
     {
+
+        rotationOffset.x = dataset_slider_rotation[0].value;
+        rotationOffset.y = dataset_slider_rotation[1].value;
+        rotationOffset.z = dataset_slider_rotation[2].value;
+        positionOffset.x = dataset_slider_position[0].value;
+        positionOffset.y = dataset_slider_position[1].value;
+        positionOffset.z = dataset_slider_position[2].value;
+        
         if (targetObject == null)
         { 
             try

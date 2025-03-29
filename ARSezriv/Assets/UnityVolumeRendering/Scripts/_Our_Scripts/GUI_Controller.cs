@@ -36,7 +36,7 @@ public class GUI_Controller : MonoBehaviour
         if (Edit_dataset_UI.gameObject.activeInHierarchy == true)
         {
             Visibility_Render(Vis[0].value, Vis[1].value);
-            rotation_Render(Rot[0].value, Rot[1].value, Rot[2].value);
+           //rotation_Render(Rot[0].value, Rot[1].value, Rot[2].value);
             
         }
         //Update_Srez();
