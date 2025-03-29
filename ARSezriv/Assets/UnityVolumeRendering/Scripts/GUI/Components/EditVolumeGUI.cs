@@ -75,10 +75,10 @@ namespace UnityVolumeRendering
             instance.targetObject = volRendObj;
         }
 
-        private void OnGUI()
+        /*private void OnGUI()
         {
             windowRect = GUI.Window(windowID, windowRect, UpdateWindow, $"Edit volume ({targetObject.dataset.datasetName})");
-        }
+        }*/
 
         private void UpdateWindow(int windowID)
         {

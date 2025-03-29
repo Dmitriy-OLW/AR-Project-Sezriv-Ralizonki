@@ -30,7 +30,7 @@ namespace UnityVolumeRendering
         {
             GUILayout.BeginVertical();
 
-             // Show dataset import buttons
+             /*// Show dataset import buttons
             if (GUILayout.Button("Import RAW dataset"))
             {
                 RuntimeFileBrowser.ShowOpenFileDialog(OnOpenRAWDatasetResultAsync, "DataFiles");
@@ -79,7 +79,7 @@ namespace UnityVolumeRendering
             if(GUILayout.Button("Ultrasound Cropping"))
             {
                 GameObject.FindObjectOfType<CrossSection_box>().CreateSlicer_for_YSI();
-            }
+            }*/
 
             GUILayout.EndVertical();
         }

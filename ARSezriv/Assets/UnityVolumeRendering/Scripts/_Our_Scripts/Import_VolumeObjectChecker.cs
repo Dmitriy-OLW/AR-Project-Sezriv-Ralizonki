@@ -27,10 +27,16 @@ public class Import_VolumeObjectChecker : MonoBehaviour
     private bool objectFound = false;
     private VolumeRenderedObject currentVolumeObject; // Текущий обрабатываемый объект
     private bool ItIsUSI = false;
+    public int RamkaorCube = 0;
+    public GameObject[] Buttons_off_edith;
     
 
     private void Start()
     {
+        foreach (GameObject obg in Buttons_off_edith)
+        {
+            obg.SetActive(false);
+        }
         toggleComponentToggle.onValueChanged.AddListener(ToggleMeshRenderer);
     }
 
@@ -125,6 +131,10 @@ public class Import_VolumeObjectChecker : MonoBehaviour
             GameObject.FindObjectOfType<CrossSection_box>().CreateSlicer_for_YSI();
             GameObject.FindObjectOfType<CubeController>().ApplyCustomScale();
         }
+        foreach (GameObject obg in Buttons_off_edith)
+        {
+            obg.SetActive(true);
+        }
     }
 
     // Метод для ручного включения
@@ -167,6 +177,24 @@ public class Import_VolumeObjectChecker : MonoBehaviour
         if (meshRenderer != null)
         {
             meshRenderer.enabled = isOn;
+            if (isOn == true)
+            {
+                if (RamkaorCube == 1)
+                {
+                    GameObject.FindObjectOfType<CrossSectionCreator>().CreateSlicer();
+                }
+                if (RamkaorCube == 2)
+                {
+                    GameObject.FindObjectOfType<CrossSection_box>().CreateSlicer_for_YSI();
+                }
+            }
+
+            if (isOn == false)
+            {
+                GameObject.FindObjectOfType<CrossSectionCreator>().off_slicer();
+                GameObject.FindObjectOfType<CrossSection_box>().off_slicer();
+            }
+            
             Debug.Log($"MeshRenderer {(isOn ? "enabled" : "disabled")}");
         }
         else

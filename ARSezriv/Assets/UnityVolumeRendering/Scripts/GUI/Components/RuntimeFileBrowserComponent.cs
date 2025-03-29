@@ -42,21 +42,21 @@ namespace UnityVolumeRendering
                 windowID = WindowGUID.GetUniqueWindowID();
             }
 
-            private void OnGUI()
+            /*private void OnGUI()
             {
                 windowRect = GUI.Window(windowID, windowRect, UpdateWindow, "File browser");
-            }
+            }*/
 
             private void UpdateWindow(int windowID)
             {
-                GUI.DragWindow(new Rect(0, 0, 10000, 20));
+                 GUI.DragWindow(new Rect(0, 0, 10000, 20));
 
                 TextAnchor oldAlignment = GUI.skin.label.alignment;
                 GUI.skin.button.alignment = TextAnchor.MiddleLeft;
 
                 GUILayout.BeginVertical();
 
-                DrawTopPanel();
+               DrawTopPanel();
 
                 GUILayout.BeginHorizontal();
 

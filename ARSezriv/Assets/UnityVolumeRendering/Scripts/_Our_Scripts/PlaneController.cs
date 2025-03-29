@@ -158,7 +158,8 @@ public class PlaneController : MonoBehaviour
     {
         if (targetPlane != null)
         {
-            targetPlane.gameObject.SetActive(!isOn);
+            targetPlane.gameObject.SetActive(false);
+            GameObject.FindObjectOfType<Import_VolumeObjectChecker>().RamkaorCube = 0;
         }
     }
 }

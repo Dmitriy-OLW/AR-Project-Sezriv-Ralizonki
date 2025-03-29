@@ -35,8 +35,10 @@ public class CrossSection_box : MonoBehaviour
 
     public void CreateSlicer_for_YSI()
     {
+        GameObject.FindObjectOfType<CrossSectionCreator>().off_slicer();
         //GameObject.FindObjectOfType<PlaneController>().ToggleComponent();
         Cross_Section_Cube.SetActive(true);
+        GameObject.FindObjectOfType<Import_VolumeObjectChecker>().RamkaorCube = 2;
 
         GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
         foreach (GameObject obj in allObjects)
@@ -67,5 +69,23 @@ public class CrossSection_box : MonoBehaviour
         Parent.rotation = Gen_Object.transform.rotation;
         StartCoroutine(WaitToEnableKostil());
 
+    }
+    private void Update()
+    {
+        if (Cross_Section_Cube.activeInHierarchy == true && Gen_Object != null)
+        {
+            Parent.position = Gen_Object.transform.position;
+            Parent.rotation = Gen_Object.transform.rotation;
+        }
+
+        if (Gen_Object == null)
+        {
+            Cross_Section_Cube.SetActive(false);
+        }
+    }
+
+    public void off_slicer()
+    {
+        Cross_Section_Cube.SetActive(false);
     }
 }
