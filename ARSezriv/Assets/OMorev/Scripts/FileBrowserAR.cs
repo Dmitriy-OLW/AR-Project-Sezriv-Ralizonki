@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class FileBrowserAR : MonoBehaviour
@@ -84,8 +85,10 @@ public class FileBrowserAR : MonoBehaviour
 
                 if (!string.IsNullOrEmpty(newPath) && Directory.Exists(newPath)) _directoryText.text = newPath;
                 InitializeSecondaryButtons();
+               
             }
         });
+        primaryButtons.Add(newButton);
     }
     void InitializeMainButtons()
     {
@@ -113,7 +116,6 @@ public class FileBrowserAR : MonoBehaviour
             foreach (string file in Directory.GetFiles(_directoryText.text))
             {
                 FileInfo fileInfo = new FileInfo(file);
-
                 CreateButtonForDirectory(Path.GetFileName(fileInfo.FullName), FileButtonType.Secondary, fileInfo.Name,false);
             }
         }
