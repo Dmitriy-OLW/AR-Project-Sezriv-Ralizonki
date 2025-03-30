@@ -21,6 +21,7 @@ public class PhantomInstance : MonoBehaviour
                 }
             }
             PlacedPhantomMark mark = gameObject.AddComponent<PlacedPhantomMark>();
+            FindObjectOfType<VisibilityModeManager>().ActivateActiveModes();
         }
     }
 
