@@ -44,30 +44,7 @@ public class VisibilityModeManager : MonoBehaviour
     }
     private void Update()
     {
-        if(_datasetModel == null)
-        {
-
-            try
-            {
-                _datasetModel = FindObjectOfType<VolumeRenderedObject>().gameObject;
-            }
-            catch { }
-        }
-        if(_defaultModel == null)
-        {
-            try
-            {
-                _defaultModel = FindObjectOfType<PlacedPhantomMark>().gameObject;
-                _difficultModel = _defaultModel.GetComponent<PhantomInstance>()._difficultModel;
-                _simpleModel = _defaultModel.GetComponent<PhantomInstance>()._simpleModel;
-            }
-            catch { }
-            if(_datasetModel != null) _datasetModel.SetActive(false);
-        }
-        //else
-        //{
-        //    _defaultModel.GetComponent<MeshRenderer>().enabled = (!(_difficultModel.activeSelf || _datasetModel.activeSelf || _simpleModel.activeSelf));
-        //}
+        if (InitializeModels()) return;
         if (_simpleModel.activeInHierarchy == true || _difficultModel.activeInHierarchy == true || (_datasetModel == null ? false : (_datasetModel.activeInHierarchy == true)))
         {
             _defaultModel.GetComponent<MeshRenderer>().enabled = false;
@@ -76,16 +53,15 @@ public class VisibilityModeManager : MonoBehaviour
         {
             _defaultModel.GetComponent<MeshRenderer>().enabled = true;
         }
-
-
-
     }
 
     public void ActivateActiveModes()
     {
+        InitializeModels();
+
         _simpleModel.SetActive(simpleModelStateContainer);
         _difficultModel.SetActive(difficultModelStateContainer);
-        _datasetModel.SetActive(datasetModelStateContainer);
+        if(_datasetModel != null) _datasetModel.SetActive(datasetModelStateContainer);
     }
     void SetSimpleModelVisibilityState(bool state)
     {
@@ -103,6 +79,29 @@ public class VisibilityModeManager : MonoBehaviour
         datasetModelStateContainer = state;
     }
 
+    bool InitializeModels()
+    {
+        if (_datasetModel == null)
+        {
 
+            try
+            {
+                _datasetModel = FindObjectOfType<VolumeRenderedObject>().gameObject;
+            }
+            catch { }
+        }
+        if (_defaultModel == null)
+        {
+            try
+            {
+                _defaultModel = FindObjectOfType<PlacedPhantomMark>().gameObject;
+                _difficultModel = _defaultModel.GetComponent<PhantomInstance>()._difficultModel;
+                _simpleModel = _defaultModel.GetComponent<PhantomInstance>()._simpleModel;
+            }
+            catch { }
+            if (_datasetModel != null) _datasetModel.SetActive(false);
+        }
+        return _defaultModel == null;
+    }
 
 }
