@@ -7,6 +7,7 @@ using TMPro;
 
 public class GUI_Controller : MonoBehaviour
 {
+
     public GameObject Edit_dataset_UI; //окно настройки датасета
     public Slider[] Vis;
     public Slider[] Rot;
@@ -21,7 +22,7 @@ public class GUI_Controller : MonoBehaviour
     
     
     public GameObject[] Menu_Mas;
-
+    public GameObject UI_AAA;
     //public T
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class GUI_Controller : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Edit_dataset_UI.gameObject.activeInHierarchy == true)
+        if (UI_AAA.gameObject.activeInHierarchy == true)
         {
             Visibility_Render(Vis[0].value, Vis[1].value);
            //rotation_Render(Rot[0].value, Rot[1].value, Rot[2].value);
@@ -67,12 +68,8 @@ public class GUI_Controller : MonoBehaviour
     //Вызом меню для изменения датасета
     public void Edit_imported_dataset_for_UI()
     {
-        Load_dataset_Buton.SetActive(false);
-        Load_file_Buton.SetActive(false);
         GameObject.FindObjectOfType<UnityVolumeRendering.RuntimeGUI>().Edit_imported_dataset();
-        //SetActive менюшки в AR
-        Edit_dataset_UI.SetActive(true);
-        ActivateOnly(Menu_Mas[3]);
+
     }
     
     
@@ -139,13 +136,19 @@ public class GUI_Controller : MonoBehaviour
         Load_dataset_Buton.SetActive(false);
         Load_file_Buton.SetActive(false);
     }
-    
-    
-    
+
+
+    public void close_load_menu2()
+    {
+        GameObject.FindObjectOfType<UnityVolumeRendering.RuntimeFileBrowser.RuntimeFileBrowserComponent>().Close_load();
+        //Load_UI.SetActive(false);
+        //Load_dataset_Buton.SetActive(false);
+        //Load_file_Buton.SetActive(false);
+    }
     //Srez Menu
-    
-    
-    
+
+
+
     //Отурыть меню рамок для среза и обрезки
     /*public void Open_Srez_Menu()
     {
@@ -162,11 +165,11 @@ public class GUI_Controller : MonoBehaviour
         
         cube.transform.localScale = new Vector3(Scale_sliders[0].value, Scale_sliders[1].value, Scale_sliders[2].value);
     }*/
-    
-    
-    
-    
-    
+
+
+
+
+
     public void ActivateOnly(GameObject objectToActivate)
     {
         // Проверяем, существует ли массив

@@ -26,7 +26,7 @@ public class VisibilityModeManager : MonoBehaviour
     private void Start()
     {
         _simpleModelToggle.isOn = false;
-        _difficultModelToggle.isOn = true;
+        _difficultModelToggle.isOn = false;
         _datasetToggle.isOn = true;
 
         _simpleModelToggle.onValueChanged.AddListener((isOn) =>
