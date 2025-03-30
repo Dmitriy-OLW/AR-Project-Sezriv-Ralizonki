@@ -25,7 +25,7 @@ public class VisibilityModeManager : MonoBehaviour
 
     private void Start()
     {
-        _simpleModelToggle.isOn = true;
+        _simpleModelToggle.isOn = false;
         _difficultModelToggle.isOn = true;
         _datasetToggle.isOn = true;
 
@@ -64,11 +64,18 @@ public class VisibilityModeManager : MonoBehaviour
             catch { }
             if(_datasetModel != null) _datasetModel.SetActive(false);
         }
-        else
+        //else
+        //{
+        //    _defaultModel.GetComponent<MeshRenderer>().enabled = (!(_difficultModel.activeSelf || _datasetModel.activeSelf || _simpleModel.activeSelf));
+        //}
+        if (_simpleModel.activeInHierarchy == true || _difficultModel.activeInHierarchy == true || (_datasetModel == null ? false : (_datasetModel.activeInHierarchy == true)))
         {
-            _defaultModel.SetActive(!(_difficultModel.activeSelf || _datasetModel.activeSelf || _simpleModel.activeSelf));
+            _defaultModel.GetComponent<MeshRenderer>().enabled = false;
         }
-
+        if (_simpleModel.activeInHierarchy == false && _difficultModel.activeInHierarchy == false && (_datasetModel == null ? true : (_datasetModel.activeInHierarchy == false)))
+        {
+            _defaultModel.GetComponent<MeshRenderer>().enabled = true;
+        }
 
 
 
