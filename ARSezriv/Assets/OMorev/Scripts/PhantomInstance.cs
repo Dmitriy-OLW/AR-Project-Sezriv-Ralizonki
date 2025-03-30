@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PhantomInstance : MonoBehaviour
 {
+    [SerializeField] public GameObject _simpleModel;
+    [SerializeField] public GameObject _difficultModel;
+
     AnchoringManager anchoringManager;
     private void Start()
     {
