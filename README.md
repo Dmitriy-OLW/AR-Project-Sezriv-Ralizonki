@@ -86,8 +86,7 @@
 
 Рисунок 1. Меню новой точки привязки:
 
-![Screnshot (9)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(9).jpeg)
-
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(9).jpeg" height="200">
 
 Для пользователя необходимо переместить модель к фантому щитовидной железы в реальном мир и выставить модель так, чтобы она совпадала по положению с реальным фантомом. Далее необходимо на правой руке сделать жест: соединить большой палец и указательный палец. Модель зафиксирует своё расположение на фантоме, и пользователю откроется главное меню для управления основами функциями приложения.
 
@@ -95,15 +94,13 @@
 
 Рисунок 2. Главное меню:
 
-![Screnshot (10)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(10).jpeg)
-
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(10).jpeg" height="200">
 
 **В меню режима отображения** пользователю предоставляется три варианта отображения (см. рис. 3).
 
 Рисунок 3. Меню режима отображения без загруженного датасета:
 
-![Screnshot (11)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(11).jpeg)
-
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(11).jpeg" height="200">
 
 **Первое это отображение датасета - фантома щитовидной железы используя сканы: МРТ, КТ и УЗИ.** Перед отображением скана, необходимо загрузить его, для этого в основном меню необходимо перейти по кнопке
 
@@ -111,7 +108,7 @@
 
 Рисунок 4. Меню загрузки датасета:
 
-![Screnshot (12)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(12).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(12).jpeg" height="200">
 
 После выбора, необходимо нажать на кнопку соответствующую кнопку для  загрузки  КТ,  МРТ  или  УЗИ.  Для  файла  со  сканами  УЗИ
 
@@ -122,7 +119,7 @@
 
 Рисунок 5. Меню настройки датасета:
 
-![Screnshot (13)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(13).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(13).jpeg" height="200">
 
 
 В этом меню пользователю доступны под меню.
@@ -131,7 +128,7 @@
 
 Рисунок 6. Меню ручной калибровки положения датасета:
 
-![Screnshot (1)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).jpeg" height="200">
 
 
 - Пропуск света / Излучения – в этом меню пользователь может изменить
@@ -141,7 +138,7 @@
 
 Рисунок 7. Меню пропуска света и излучения:
 
-![Screnshot (2)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(2).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(2).jpeg" height="200">
 
 
 - Объёмный срез – В этом меню, можно объёмный срез, отключить объёмный срез, восстановить значения объёмного среза по умолчанию, изменить позицию, вращение и размеры плоскости и активировать режим
@@ -150,14 +147,14 @@
 
 Рисунок 8. Меню настройки объёмного среза:
 
-![Screnshot (3)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(3).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(3).jpeg" height="200">
 
 
 - Плоский срез – В этом меню, можно создать плоскость, отключить плоскость, восстановить значения по умолчанию и изменить позицию и вращение плоскости (см. рис. 9);
 
 Рисунок 9. Меню настройки плоского среза:
 
-![Screnshot (4)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(4).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(4).jpeg" height="200">
 
 
 **Второй режим** – визуализация модели по анатомическому атласу.
@@ -170,15 +167,15 @@
 
 Рисунок 10. Меню настройки визуализация модели по анатомическому атласу и схеме (два схожих меню):
 
-![Screnshot (5)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(5).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(5).jpeg" height="200">
 
 
 При включение всех визуализаций, меню визуализаций будет иметь следующий вид (см. рис. 11).
 
 
-Рисунок 11. Меню визуализации с всем включёнными визуализациями:
+Рисунок 11. Меню визуализации со всем включёнными визуализациями:
 
-![Screnshot (6)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(6).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(6).jpeg" height="200">
 
 
 **Предобработка сканов УЗИ**
@@ -195,16 +192,16 @@
 
 Рисунок 2.1. Настройка Meta Quest Link:
 
-![Screnshot (7)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg" height="200">
 
 Рисунок 2.2. Вид скрипта в инспекторе Unity:
 
-![Screnshot (8)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg)
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg" height="200">
 
 Рисунок 2.3. Проверка работоспособности модуля «SimpleITKCSharpNative»:
 
-![Screnshot (1)](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).png)
 
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).png" height="200">
 
 
 ### **Дополнительный скриншоты:**
