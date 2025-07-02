@@ -192,11 +192,11 @@
 
 Рисунок 2.1. Настройка Meta Quest Link:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg" height="200">
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg" height="300">
 
 Рисунок 2.2. Вид скрипта в инспекторе Unity:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg" height="200">
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg" height="100">
 
 Рисунок 2.3. Проверка работоспособности модуля «SimpleITKCSharpNative»:
 
