@@ -126,24 +126,41 @@ Figure 5. Dataset Settings Menu:
 <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(13).jpeg" height="200">
 
 This menu includes submenus:
-- Manual Position Calibration: Adjust dataset position and rotation via sliders (Fig. 6);
+- Manual Position Calibration – Allows fine-tuning of the dataset's position and rotation using sliders (see Fig. 6).  
+
+Figure 6. Manual Position Calibration Menu: 
 
 <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).jpeg" height="200">  
  
-- Light/Radiation Transmission: Change rendering modes (standard, transparency, isosurface) and adjust brightness/absorption coefficients (Fig. 7);
+- Light/Radiation Transmission** – In this menu, the user can adjust:  
+  - *Model Render Modes*: Three modes are available—standard render, transparency mode, and isosurface rendering (splitting the dataset into radiation absorption layers).  
+  - Brightness/radiation absorption coefficient settings using two sliders (see Fig. 7).  
+
+Figure 7. Light/Radiation Transmission Menu:
 
 <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(2).jpeg" height="200">  
 
-- Volume Slice: Enable/disable volume slicing, reset defaults, adjust plane position/rotation/size, and enable slice-by-slice navigation (Fig. 8);
+- Volumetric Slice – This menu allows the user to:  
+  - Enable/disable volumetric slicing.  
+  - Restore default slice settings.  
+  - Adjust the position, rotation, and dimensions of the slicing plane.  
+  - Activate *Slice Mode*, enabling frame-by-frame navigation through the dataset along all axes (see Fig. 8).  
+
+Figure 8. Volumetric Slice Settings Menu:
 
 <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(3).jpeg" height="200">  
 
-- Flat Slice: Create/disable a slice plane, reset defaults, and adjust position/rotation (Fig. 9).
+- Planar Slice – This menu allows the user to:  
+  - Create or disable a slicing plane.  
+  - Restore default settings.  
+  - Adjust the position and rotation of the plane (see Fig. 9).  
+
+Figure 9. Planar Slice Settings Menu:
 
 <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(4).jpeg" height="200">  
 
-**Second Mode:** Anatomical atlas visualization. Toggle model parts to view organs individually (Fig. 10).  
-**Third Mode:** Schematic anatomical visualization. Toggle model parts to view organs individually (Fig. 10).
+**Second Mode:** In this mode, users can toggle parts of the model on/off, allowing isolated viewing of organs on an anatomical atlas (see Fig. 10).
+**Third Mode:** Similar to the second mode, users can toggle parts of the model to view organs individually on anatomical schematics (see Fig. 10).  
 
 Figure 10. Anatomical Atlas and Schematic Visualization Menus:
 
