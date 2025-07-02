@@ -196,7 +196,7 @@
 
 ### **Приложение**
 
-Изменение исходного кода MetaSDK: /Resourses/Other/SpatialAnchorSpawnerBuildingBlock.txt
+Изменение исходного кода MetaSDK: /Resourses/Other/SpatialAnchorSpawnerBuildingBlock
 
 Рисунок 2.1. Настройка Meta Quest Link:
 
