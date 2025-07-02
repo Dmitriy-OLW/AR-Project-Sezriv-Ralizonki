@@ -22,6 +22,13 @@
   <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(13).png" height="100" />
 </div>
 
+
+#### Приложение разработано в рамках Хакатона "AR для фантома щитовидной железы" Пятой Открытой конференции молодых учёных Центра диагностики и телемедицины. **Представленный проект занял второе место.** Приложение разработанно комндой "Сезрыв Рализёнки", участники команды: Константинов Дмитрий, Морев Олег, Пищагин Максим, Семичев Иван.
+
+### **Диплом подтверждающий занятое место:**
+
+<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Sertifikat/Sertificat_.jpg" height="500">
+
 <br>
 
 ### **Тестовые данные:** 
