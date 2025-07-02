@@ -1,6 +1,6 @@
 <h2>Документация решения</h2>
 
-Рус | [Eng](resources//README-Eng.md)
+Рус | [Eng](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/README-Eng.md)
 
 **Ссылка на приложение:** https://dmitriy-olw.itch.io/ar-mr-app-for-medical-files
 
