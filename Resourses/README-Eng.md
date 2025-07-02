@@ -1,6 +1,6 @@
 # Documentation
 
-[Рус](../../README.md) | Eng
+[Рус](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/README.md) | Eng
 
 **Application Link:** https://dmitriy-olw.itch.io/ar-mr-app-for-medical-files
 
