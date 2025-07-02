@@ -1,6 +1,6 @@
 <h2>Документация решения</h2>
 
-**Ссылка на приложение:** https://dmitriy-olw.itch.io/ar-app-for-medical-scanners
+**Ссылка на приложение:** https://dmitriy-olw.itch.io/ar-mr-app-for-medical-files
 
 ### **О проекте**
 
