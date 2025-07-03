@@ -1,6 +1,6 @@
 # Documentation
 
-[Рус](https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/README.md) | Eng
+[Рус](../README.md) | Eng
 
 **Application Link:** https://dmitriy-olw.itch.io/ar-mr-app-for-medical-files
 
@@ -16,23 +16,23 @@
 **Application Screenshots:**
 
 <div align="center">
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/Preview.png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(1).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(2).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(5).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(6).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(7).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(9).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(10).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(12).png" height="100" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(13).png" height="100" />
+  <img src="../Resourses/Screnshots/Preview.png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(1).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(2).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(5).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(6).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(7).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(9).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(10).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(12).png" height="100" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(13).png" height="100" />
 </div>
 
 #### This application was developed as part of the Hackathon "AR for Thyroid Phantom" at the Fifth Open Conference of Young Scientists of the Center for Diagnostics and Telemedicine. **The presented project won second place.** The application was developed by the team "Sezriv Ralizonki". Team members: Dmitry Konstantinov, Oleg Morev, Maxim Pishchagin, Ivan Semichev.
 
 ### **Diploma Confirming the Award:**
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Sertifikat/Sertificat_.jpg" height="500">
+<img src="../Resourses/Sertifikat/Sertificat_.jpg" height="500">
 
 <br>
 
@@ -95,7 +95,7 @@ Upon loading, the user sees a menu with the "New Anchor Point" button (Fig. 1). 
 
 Figure 1. New Anchor Point Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(9).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(9).jpeg" height="200">
 
 The user must position the model to align with the real-world thyroid phantom. Then, make a gesture with the right hand: pinch the thumb and index finger together. The model will lock in place, and the main menu for controlling the application's core functions will appear.
 
@@ -103,19 +103,19 @@ In the main menu, users can choose to reset the anchor point or enter display mo
 
 Figure 2. Main Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(10).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(10).jpeg" height="200">
 
 **In the display mode menu**, three visualization options are available (Fig. 3).
 
 Figure 3. Display Mode Menu (No Dataset Loaded):
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(11).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(11).jpeg" height="200">
 
 **The first option displays the thyroid phantom dataset using MRI, CT, and ultrasound scans.** Before viewing, load the dataset by clicking "Load Dataset" in the main menu. In the dataset loading menu (Fig. 4), navigate to the folder containing DICOM or .dcm files. (Preprocess data beforehand—one dataset per folder).
 
 Figure 4. Dataset Loading Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(12).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(12).jpeg" height="200">
 
 After selection, click the corresponding button for CT, MRI, or ultrasound. For ultrasound scans, preprocessing with Python scripts is required (see Resourses/Python_Scripts/).
 
@@ -123,14 +123,14 @@ The dataset will load and process, enabling visualization and access to the data
 
 Figure 5. Dataset Settings Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(13).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(13).jpeg" height="200">
 
 This menu includes submenus:
 - Manual Position Calibration – Allows fine-tuning of the dataset's position and rotation using sliders (see Fig. 6).  
 
 Figure 6. Manual Position Calibration Menu: 
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).jpeg" height="200">  
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(1).jpeg" height="200">  
  
 - Light/Radiation Transmission** – In this menu, the user can adjust:  
   - *Model Render Modes*: Three modes are available—standard render, transparency mode, and isosurface rendering (splitting the dataset into radiation absorption layers).  
@@ -138,7 +138,7 @@ Figure 6. Manual Position Calibration Menu:
 
 Figure 7. Light/Radiation Transmission Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(2).jpeg" height="200">  
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(2).jpeg" height="200">  
 
 - Volumetric Slice – This menu allows the user to:  
   - Enable/disable volumetric slicing.  
@@ -148,7 +148,7 @@ Figure 7. Light/Radiation Transmission Menu:
 
 Figure 8. Volumetric Slice Settings Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(3).jpeg" height="200">  
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(3).jpeg" height="200">  
 
 - Planar Slice – This menu allows the user to:  
   - Create or disable a slicing plane.  
@@ -157,20 +157,20 @@ Figure 8. Volumetric Slice Settings Menu:
 
 Figure 9. Planar Slice Settings Menu:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(4).jpeg" height="200">  
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(4).jpeg" height="200">  
 
 **Second Mode:** In this mode, users can toggle parts of the model on/off, allowing isolated viewing of organs on an anatomical atlas (see Fig. 10).
 **Third Mode:** Similar to the second mode, users can toggle parts of the model to view organs individually on anatomical schematics (see Fig. 10).  
 
 Figure 10. Anatomical Atlas and Schematic Visualization Menus:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(5).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(5).jpeg" height="200">
 
 With all visualizations enabled, the menu appears as shown in Fig. 11.
 
 Figure 11. Visualization Menu (All Modes Enabled):
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(6).jpeg" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(6).jpeg" height="200">
 
 **Ultrasound Scan Preprocessing**  
 For ultrasound scans, preprocess using Python scripts (see Resourses/Python_Scripts/).  
@@ -183,33 +183,33 @@ Modified MetaSDK Source Code: /Resourses/Other/SpatialAnchorSpawnerBuildingBlock
 
 Figure 2.1. Meta Quest Link Setup:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg" height="300">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(7).jpeg" height="300">
 
 Figure 2.2. Script Inspector View in Unity:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg" height="100">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(8).jpeg" height="100">
 
 Figure 2.3. SimpleITKCSharpNative Module Verification:
 
-<img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Instruction_Screnshots/Screnshot%20(1).png" height="200">
+<img src="../Resourses/Instruction_Screnshots/Screnshot%20(1).png" height="200">
 
 (File is archived—extract from Resourses/Other/SimpleITKCSharpNative.7z)
 
 ### **Additional Screenshots:**
 
 <div align="center">
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/Preview.png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(1).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(2).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(3).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(4).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(5).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(6).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(7).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(8).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(9).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(10).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(11).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(12).png" height="200" />
-  <img src="https://github.com/Dmitriy-OLW/AR-Project-Sezriv-Ralizonki/blob/main/Resourses/Screnshots/ScrenShot%20(13).png" height="200" />
+  <img src="../Resourses/Screnshots/Preview.png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(1).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(2).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(3).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(4).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(5).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(6).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(7).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(8).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(9).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(10).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(11).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(12).png" height="200" />
+  <img src="../Resourses/Screnshots/ScrenShot%20(13).png" height="200" />
 </div>
